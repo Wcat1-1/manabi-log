@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: manabi-log
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: manabi-log-db
+          property: connectionString
+
+databases:
+  - name: manabi-log-db
+    plan: free
+    region: oregon
+    ipAllowList: []
